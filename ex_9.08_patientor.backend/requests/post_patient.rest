@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+  {
+    "name": "John Lennon",
+    "dateOfBirth": "1940-10-09",
+    "ssn": "250470-533k",
+    "gender": "male",
+    "occupation": "Musician"
+  }

@@ -3,14 +3,22 @@ export interface Patient {
   name: string,
   dateOfBirth: string,
   ssn: string,
-  gender: string,
+  gender: Gender,
   occupation: string
 }
 
-export type NonSensitivePatientData = Omit<Patient, 'ssn'>
+export enum Gender {
+  Male = 'male',
+  Female = 'female'
+}
+
+export type NonSensitivePatientData = Omit<Patient, 'ssn'>;
+
+export type NewPatient = Omit<Patient, 'id'>;
 
 export interface Diagnose {
   code: string,
   name: string,
-  latin?: String
-};
+  latin?: string
+}
+
