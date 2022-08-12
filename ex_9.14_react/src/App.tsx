@@ -9,15 +9,13 @@ const Header = ({text}: {text:string}) => (
 
 const Content = ({courseParts}: {courseParts:any}) => (
   <div>
-    <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount}
-      </p>
+    {
+      courseParts.map((part:Course)=> (
+        <p key={part.name}>
+          {part.name}: {part.exerciseCount} exercises
+        </p>
+      ))
+    }
   </div>
 );
 
@@ -32,7 +30,7 @@ const Total = ({courseParts}: {courseParts:any}) => (
 
 const App = () => {
   const courseName = "Half Stack application development";
-  const courseParts = [
+  const courseParts: Array<Course> = [
     {
       name: "Fundamentals",
       exerciseCount: 10
