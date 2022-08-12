@@ -3,15 +3,11 @@ interface Course {
   exerciseCount: number
 }
 
-interface CourseArray {
-  courseParts: Array<Course>
-}
-
 const Header = ({text}: {text:string}) => (
   <div><h1>{text}</h1></div>
 );
 
-const Content = ({courseParts}:CourseArray) => (
+const Content = ({courseParts}: {courseParts:any}) => (
   <div>
     <p>
         {courseParts[0].name} {courseParts[0].exerciseCount}
@@ -25,7 +21,7 @@ const Content = ({courseParts}:CourseArray) => (
   </div>
 );
 
-const Total = ({courseParts}:CourseArray) => (
+const Total = ({courseParts}: {courseParts:any}) => (
   <div>
     <p>
       Number of exercises{" "}
