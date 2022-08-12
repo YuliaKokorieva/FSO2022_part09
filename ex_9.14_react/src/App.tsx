@@ -7,7 +7,7 @@ const Header = ({text}: {text:string}) => (
   <div><h1>{text}</h1></div>
 );
 
-const Content = ({courseParts}: {courseParts:any}) => (
+const Content = ({courseParts}: {courseParts:Array<Course>}) => (
   <div>
     {
       courseParts.map((part:Course)=> (
@@ -19,7 +19,7 @@ const Content = ({courseParts}: {courseParts:any}) => (
   </div>
 );
 
-const Total = ({courseParts}: {courseParts:any}) => (
+const Total = ({courseParts}: {courseParts:Array<Course>}) => (
   <div>
     <p>
       Number of exercises{" "}
