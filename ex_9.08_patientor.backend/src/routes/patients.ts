@@ -9,8 +9,18 @@ router.get('/', (_req,res)=> {
   res.send(patientService.getNonSensitivePatientEntries());
 });
 
+router.get('/:id', (req, res) => {
+  const requestedPatient = {...patientService.getPatientById(req.params.id), entries:[]};
+  if (requestedPatient) {
+    res.send(requestedPatient);
+  } else {
+    res.status(404).send(`no such patient`);
+  }
+});
+
 router.post('/', (req,res) => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const newPatient = checkNewPatientData(req.body);
     const addedPatient = patientService.addPatient(newPatient);
     res.json(addedPatient);
