@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { apiBaseUrl } from "../../constants";
-import { Patient } from "../../types";
-import { useStateValue } from "../../state";
+import { apiBaseUrl } from "../constants";
+import { Patient } from "../types";
+import { useStateValue } from "../state";
 
 const PatientPage = () => {
   const {id} = useParams<{id:string}>();

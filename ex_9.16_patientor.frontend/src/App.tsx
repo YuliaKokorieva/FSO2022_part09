@@ -8,7 +8,7 @@ import { useStateValue } from "./state";
 import { Patient } from "./types";
 
 import PatientListPage from "./PatientListPage";
-import PatientPage from "./components/PatientPage";
+import PatientPage from "./PatientPage";
 import { Typography } from "@material-ui/core";
 
 const App = () => {
