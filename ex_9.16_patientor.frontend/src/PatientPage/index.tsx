@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
-import { Patient } from "../types";
+import { Patient, Entry } from "../types";
 import { useStateValue, setPatient } from "../state";
 
 const PatientPage = () => {
@@ -30,6 +30,23 @@ const PatientPage = () => {
           <p>gender: {patient.gender}</p>
           <p>ssn: {patient.ssn}</p>
           <p>occupation: {patient.occupation}</p>
+          <h3>entries</h3>
+          <p>
+            {
+              patient.entries?.map((entry: Entry) => (
+                <div key={entry.id}>
+                  <p>{entry.date} {entry.description}</p>
+                  <ul>
+                    {entry.diagnosisCodes?.map((diagnosis: string)=> (
+                      <li key={diagnosis}>
+                        {diagnosis}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </p>
         </div>
         : "no patient selected"
       }
