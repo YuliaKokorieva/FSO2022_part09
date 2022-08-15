@@ -34,4 +34,20 @@ export const StateProvider = ({
     </StateContext.Provider>
   );
 };
+
 export const useStateValue = () => useContext(StateContext);
+
+export const setPatientList = (patients: Array<Patient>):Action => {
+  return {
+    type: "SET_PATIENT_LIST",
+    payload: patients
+  };
+};
+
+export const setPatient = (patient: Patient):Action => {
+  return {
+    type: "SET_PATIENT",
+    payload: patient
+  };
+};
+

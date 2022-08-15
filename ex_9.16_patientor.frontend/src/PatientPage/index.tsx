@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
 import { Patient } from "../types";
-import { useStateValue } from "../state";
+import { useStateValue, setPatient } from "../state";
 
 const PatientPage = () => {
   const {id} = useParams<{id:string}>();
@@ -13,7 +13,7 @@ const PatientPage = () => {
       try {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         const {data: patient} = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
-        dispatch({type: "SET_PATIENT", payload: patient});
+        dispatch(setPatient(patient));
       } catch (e) {
         console.log(e);
       }
