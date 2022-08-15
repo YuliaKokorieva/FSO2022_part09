@@ -2,12 +2,13 @@ import React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
-import { Patient, Entry } from "../types";
+import { Patient, Entry, Diagnose } from "../types";
 import { useStateValue, setPatient } from "../state";
 
 const PatientPage = () => {
   const {id} = useParams<{id:string}>();
-  const [{patient}, dispatch] = useStateValue();
+  const [{patient, diagnoses}, dispatch] = useStateValue();
+  
   React.useEffect(()=> {
     const fetchPatientById = async () => {
       try {
@@ -18,6 +19,7 @@ const PatientPage = () => {
         console.log(e);
       }
     };
+
     void fetchPatientById();
   }, [dispatch]);
 
@@ -39,7 +41,7 @@ const PatientPage = () => {
                   <ul>
                     {entry.diagnosisCodes?.map((diagnosis: string)=> (
                       <li key={diagnosis}>
-                        {diagnosis}
+                        {diagnosis}: {diagnoses.find((d:Diagnose)=> d.code===diagnosis)?.name}
                       </li>
                     ))}
                   </ul>
@@ -50,11 +52,8 @@ const PatientPage = () => {
         </div>
         : "no patient selected"
       }
-     
-
     </div>
   );
 };
-
 
 export default PatientPage;
