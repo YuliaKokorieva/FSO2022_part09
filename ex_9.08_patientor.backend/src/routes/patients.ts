@@ -10,7 +10,7 @@ router.get('/', (_req,res)=> {
 });
 
 router.get('/:id', (req, res) => {
-  const requestedPatient = {...patientService.getPatientById(req.params.id), entries:[]};
+  const requestedPatient = patientService.getPatientById(req.params.id);
   if (requestedPatient) {
     res.send(requestedPatient);
   } else {
