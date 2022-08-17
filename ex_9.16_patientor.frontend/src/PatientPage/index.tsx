@@ -2,12 +2,34 @@ import React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
-import { Patient, Entry, Diagnose } from "../types";
+import { Patient, Entry } from "../types";
 import { useStateValue, setPatient } from "../state";
+import { HealthCheck, Hospital, OccupationalHealthcare } from "./EntryTypes";
+import { Divider } from "@material-ui/core";
+
+const assertNever = (value: never): never => {
+  throw new Error(
+    `Unhandled discriminated union member: ${JSON.stringify(value)}`
+  );
+};
+
+const EntryDetails:React.FC<({entry:Entry})> = ({entry}) => {
+  switch (entry.type) {
+
+    case "HealthCheck":
+      return <HealthCheck entry={entry}/>;
+    case "OccupationalHealthcare":
+      return <OccupationalHealthcare entry={entry}/>;
+    case "Hospital":
+      return <Hospital entry={entry} />;
+    default:
+      return assertNever(entry);
+  }
+};
 
 const PatientPage = () => {
   const {id} = useParams<{id:string}>();
-  const [{patient, diagnoses}, dispatch] = useStateValue();
+  const [{patient}, dispatch] = useStateValue();
   
   React.useEffect(()=> {
     const fetchPatientById = async () => {
@@ -29,26 +51,21 @@ const PatientPage = () => {
         ? 
         <div>
           <h2>{patient.name}</h2>
-          <p>gender: {patient.gender}</p>
-          <p>ssn: {patient.ssn}</p>
-          <p>occupation: {patient.occupation}</p>
+          gender: {patient.gender}<br/>
+          ssn: {patient.ssn}<br/>
+          occupation: {patient.occupation}<br/>
           <h3>entries</h3>
-          <p>
-            {
-              patient.entries?.map((entry: Entry) => (
-                <div key={entry.id}>
-                  <p>{entry.date} {entry.description}</p>
-                  <ul>
-                    {entry.diagnosisCodes?.map((diagnosis: string)=> (
-                      <li key={diagnosis}>
-                        {diagnosis}: {diagnoses.find((d:Diagnose)=> d.code===diagnosis)?.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))
-            }
-          </p>
+          {
+            patient.entries?.map((entry: Entry) => (
+              <React.Fragment key={entry.id}>
+                <Divider/>
+                <EntryDetails entry={entry} />
+                <Divider/>
+              </React.Fragment>
+            )            
+            )
+          }
+          
         </div>
         : "no patient selected"
       }
