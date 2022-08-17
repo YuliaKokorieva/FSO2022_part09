@@ -6,6 +6,8 @@ import { Patient, Entry } from "../types";
 import { useStateValue, setPatient } from "../state";
 import { HealthCheck, Hospital, OccupationalHealthcare } from "./EntryTypes";
 import { Divider } from "@material-ui/core";
+import FemaleIcon from '@mui/icons-material/Female';
+import MaleIcon from '@mui/icons-material/Male';
 
 const assertNever = (value: never): never => {
   throw new Error(
@@ -24,6 +26,17 @@ const EntryDetails:React.FC<({entry:Entry})> = ({entry}) => {
       return <Hospital entry={entry} />;
     default:
       return assertNever(entry);
+  }
+};
+
+const showGender =(gender:string) => {
+  switch (gender) {
+    case "female":
+      return (<FemaleIcon/>);
+    case "male":
+      return (<MaleIcon/>);
+    default: 
+      return null;
   }
 };
 
@@ -51,7 +64,7 @@ const PatientPage = () => {
         ? 
         <div>
           <h2>{patient.name}</h2>
-          gender: {patient.gender}<br/>
+          gender: {showGender(patient.gender)}<br/>
           ssn: {patient.ssn}<br/>
           occupation: {patient.occupation}<br/>
           <h3>entries</h3>

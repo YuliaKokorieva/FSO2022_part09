@@ -1,8 +1,13 @@
 import { useStateValue } from "../state";
-import { Diagnose, Entry } from "../types";
-// import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
-// import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
-// import { SentimentVeryDissatisfied } from "@material-ui/icons";
+import { Diagnose, Entry, HealthCheckEntry, OccupationalHealthcareEntry } from "../types";
+import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import { SentimentVeryDissatisfied } from "@material-ui/icons";
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import React from "react";
+
 
 const fetchDiagnoseDescr =(diagnose:string) => {
   const [{diagnoses}, ] = useStateValue();
@@ -34,32 +39,26 @@ const diagnoseInfo = (entry:Entry) => {
   );
 };
 
-const healthRating =(entry:Entry) => {
+const healthRating =(entry:HealthCheckEntry) => {
   switch (entry.healthCheckRating) {
     case 0:
-      // return (<div><SentimentSatisfiedAltIcon/><SentimentSatisfiedAltIcon/></div>);
-      return (<div>++</div>);
+      return (<React.Fragment><SentimentSatisfiedAltIcon/><SentimentSatisfiedAltIcon/></React.Fragment>);
     case 1: 
-      // return (<div><SentimentSatisfiedAltIcon/></div>);
-      return (<div>+</div>);
+      return (<SentimentSatisfiedAltIcon/>);
     case 2: 
-      // return (<div><SentimentNeutralIcon/></div>);
-      return (<div>-</div>);
+      return (<SentimentNeutralIcon/>);
     case 3: 
-      // return (<div><SentimentVeryDissatisfied/></div>);
-      return (<div>--</div>);
+      return (<SentimentVeryDissatisfied/>);
     default:
       return null;
   }
-
-
 };
 
-export const HealthCheck:React.FC<({entry:Entry})> =({entry}) => {
+export const HealthCheck:React.FC<({entry:HealthCheckEntry})> =({entry}) => {
   return (
     <div>
       <br/>
-      type: {entry.type} <br/>
+      <FavoriteBorderIcon/><br/>
       {entry.date}<br/>
       {entry.description}<br/>
       Diagnosed by {entry.specialist}<br/>
@@ -70,12 +69,12 @@ export const HealthCheck:React.FC<({entry:Entry})> =({entry}) => {
   );
 };
 
-export const OccupationalHealthcare:React.FC<({entry:Entry})> =({entry}) => {
+export const OccupationalHealthcare:React.FC<({entry:OccupationalHealthcareEntry})> =({entry}) => {
 
   return (
     <div>
       <br/>
-      type: {entry.type}<br/>
+      <MedicalInformationIcon/><br/>
       {entry.date}<br/>
       employer: {entry.employerName}<br/>
       {entry.description}<br/>
@@ -90,8 +89,8 @@ export const Hospital:React.FC<({entry:Entry})> =({entry}) => {
   return (
     <div>
       <br/>
-      type: {entry.type}<br/>
-      {entry.date}<br/>
+      <LocalHospitalIcon/><br/>
+      date: {entry.date}<br/>
       {entry.description}<br/>
       {diagnoseInfo(entry)}
       <br/>
