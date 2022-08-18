@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients/d2773336-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "type": "Hospital",
+  "date": "2022-08-17",
+  "specialist": "doctor",
+  "diagnosisCodes": ["F43.2"],
+  "description": "entry from rest client"
+}

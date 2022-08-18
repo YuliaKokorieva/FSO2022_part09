@@ -1,7 +1,6 @@
 import express from 'express';
 import patientService from '../services/patientService';
-import checkNewPatientData from '../utils';
-
+import {checkNewPatientData, checkNewEntryData} from '../utils';
 
 const router = express.Router();
 
@@ -32,6 +31,14 @@ router.post('/', (req,res) => {
     }
     res.status(400).send(errorMessage);
   }
+});
+
+router.post('/:id/entries', (req, res) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const newEntry = checkNewEntryData(req.body);
+  const addedEntry = patientService.addEntry(newEntry, req.params.id);
+  res.json(addedEntry);
+
 });
 
 export default router;
