@@ -27,7 +27,7 @@ export interface Diagnose {
 }
 
 
-interface BaseEntry {
+export interface BaseEntry {
   id: string;
   description: string;
   date: string;
@@ -69,3 +69,9 @@ export interface OccupationalHealthcareEntry extends BaseEntry {
 }
 
 export type Entry = OccupationalHealthcareEntry | HealthCheckEntry | HospitalEntry  ;
+
+export enum EntryType {
+  Hospital = "Hospital",
+  HealthCheck = "HealthCheck",
+  OccupationalHealthcare = "OccupationalHealthcare"
+}

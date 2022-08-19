@@ -1,17 +1,17 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { Diagnose, Patient } from "../types";
+import { Diagnose, Entry, Patient } from "../types";
 
 import { Action } from "./reducer";
 
 export type State = {
   patients: { [id: string]: Patient };
-  patient:  Patient | undefined;
-  diagnoses: Array<Diagnose>
+  patient:  Patient | Record<string, never>;
+  diagnoses: Array<Diagnose>;
 };
 
 const initialState: State = {
   patients: {},
-  patient: undefined,
+  patient: {},
   diagnoses: []
 };
 
@@ -59,4 +59,13 @@ export const setDiagnoses = (diagnoses: Array<Diagnose>): Action => {
     payload: diagnoses
   };
 };
+
+export const addEntry =(entry:Entry, id:string): Action => {
+  return {
+    type: "ADD_ENTRY",
+    id:id,
+    payload: entry
+  };
+};
+
 

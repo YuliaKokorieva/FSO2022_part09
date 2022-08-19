@@ -79,7 +79,7 @@ const isEntryType = (param: any): param is EntryType => {
 
 const parseEntryType = (entryType:unknown): EntryType => {
   if (!entryType || !isEntryType(entryType)) {
-    throw new Error('Incorrect or missing gender: ' + entryType);
+    throw new Error('Incorrect or missing entryType: ' + entryType);
   }
   return entryType;
 };
@@ -91,7 +91,9 @@ const isRating = (param:any): param is HealthCheckRating => {
 };
 
 const parseRating = (rating:any): HealthCheckRating => {
-  if (!rating || isRating(rating)) {
+  const values: Array<number> = [0,1,2,3];
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  if (!values.includes(rating) || !isRating(rating)) {
     throw new Error('Incorrect or missing HealthCheckRating');
   }
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
